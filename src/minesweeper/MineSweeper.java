@@ -23,19 +23,20 @@ public class MineSweeper extends JFrame {
 
     public void setUp() {
         int cellsize = 250;
-        int rows = 3;
-        int columns = 4;
+        int rows = 12;
+        int columns = 5;
+        int mines = 20;
         setSize(1250, 980);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(cellsize * 3, cellsize * 3);
-        new Board(rows, columns);
+        new Board(rows, columns,mines);
     }
 
 
     public class Board {
-        public Board(int rows, int columns) {
-            int mines = 4;
+        public Board(int rows, int columns,int mines) {
+
             setLayout(new GridLayout(rows, columns));
 
             JLabel[][] cells = new JLabel[rows][columns];
