@@ -30,12 +30,12 @@ public class MineSweeper extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(cellsize * 3, cellsize * 3);
-        new Board(rows, columns,mines);
+        new Board(rows, columns, mines);
     }
 
 
     public class Board {
-        public Board(int rows, int columns,int mines) {
+        public Board(int rows, int columns, int mines) {
 
             setLayout(new GridLayout(rows, columns));
 
@@ -51,30 +51,21 @@ public class MineSweeper extends JFrame {
                     cell.setFont(new Font("Impact", Font.BOLD, 35));
                     cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
                     cell.setOpaque(true);
-
-                    cell.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-
-                            //if (continueGame && isEmpty(cell)) {
-                            //   if (continueGame = doTurn(row, col, user)) {
-                            //       computerTurn();
-                            //  }
-                            //   }
-                        }
-                    });
                     add(cell);
                 }
             }
 
-            int validSpots=0;
+            int validSpots = 0;
 
-            while ( validSpots < mines) {
-                int[] findSpot = HelperFunctions.findPositions(rows, columns);
-                int randRow = findSpot[0];
-                int randCol = findSpot[1];
-                if (HelperFunctions.isEmpty(cells[randRow][randCol])) {
-                    cells[randRow][randCol].setText("Mine");
+            while (validSpots < mines) {
+                Point spot = HelperFunctions.findPositions(rows, columns);
+
+                int row = spot.x;
+                int col = spot.y;
+
+                if (HelperFunctions.isEmpty(cells[row][col])) {
+                    // since the highest value of mines around a specific cell is 8 the int describing mine I made as 9
+                    Rules.allValues.put(new Point(row, col), 9);
                     validSpots++;
                 }
             }
