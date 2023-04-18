@@ -70,7 +70,7 @@ public class Rules {
         }
     }
 
-    public static boolean calculateAround(JLabel[][] cells) {
+    public static void calculateAround(JLabel[][] cells) {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 JLabel cell = cells[i][j];
@@ -80,14 +80,13 @@ public class Rules {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         if (HelperFunctions.isEmpty(cell)) {
-                            cell.setText(String.format("%d", findMinesAround(finalI, finalJ, cells)));
+                            int mineCount = findMinesAround(finalI, finalJ, cells);
+                            String display = mineCount == 9 ? "mine" : Integer.toString(mineCount);
+                            cell.setText(String.format("%s", display));
                         }
                     }
                 });
-
             }
         }
-        return true;
     }
-
 }
