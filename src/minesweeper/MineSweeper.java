@@ -2,10 +2,6 @@ package minesweeper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MineSweeper extends JFrame {
     public static void main(String[] args) {
@@ -65,11 +61,11 @@ public class MineSweeper extends JFrame {
 
                 if (HelperFunctions.isEmpty(cells[row][col])) {
                     // since the highest value of mines around a specific cell is 8 the int describing mine I made as 9
-                    Rules.allValues.put(new Point(row, col), 9);
+                    GamePlay.allValues.put(new Point(row, col), 9);
                     validSpots++;
                 }
             }
-            Rules.calculateAround(cells);
+            GamePlay.calculateAround(cells);
         }
     }
 

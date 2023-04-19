@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Rules {
+public class GamePlay {
 
     public static Map<Point, Integer> allValues = new HashMap<>();
 
@@ -22,7 +22,7 @@ public class Rules {
 
     private static int findMinesAround(int i, int j, JLabel[][] cells) {
         Point thisPoint = new Point(i, j);
-        // This can be considered as an optimization when the click to reveal is
+        // This can be considered as an optimization when the click to reveal is mine
         if (allValues.containsKey(thisPoint)) {
             return allValues.get(thisPoint);
         } else {
@@ -70,6 +70,23 @@ public class Rules {
         }
     }
 
+    private static void setCellText(int i, int j, JLabel[][] cells) {
+        JLabel cell = cells[i][j];
+        int mineCount = findMinesAround(i, j, cells);
+        String display = mineCount == 9 ? "mine" : Integer.toString(mineCount);
+        cell.setText(String.format("%s", display));
+        if (mineCount == 9) {
+            for (int getI = 0; getI < cells.length; getI++) {
+                for (int getJ = 0; getJ < cells[getI].length; getJ++) {
+                    JLabel newCell = cells[getI][getJ];
+                    if (HelperFunctions.isEmpty(newCell)) {
+                        setCellText(getI, getJ, cells);
+                    }
+                }
+            }
+        }
+    }
+
     public static void calculateAround(JLabel[][] cells) {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
@@ -80,9 +97,7 @@ public class Rules {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         if (HelperFunctions.isEmpty(cell)) {
-                            int mineCount = findMinesAround(finalI, finalJ, cells);
-                            String display = mineCount == 9 ? "mine" : Integer.toString(mineCount);
-                            cell.setText(String.format("%s", display));
+                            setCellText(finalI, finalJ, cells);
                         }
                     }
                 });
