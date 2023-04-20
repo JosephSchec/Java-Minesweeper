@@ -20,14 +20,13 @@ public class MineSweeper extends JFrame {
     }
 
     public void setUp() {
-        int cellsize = 250;
-        int rows = 12;
+        int cellsize = 100;
+        int rows = 8;
         int columns = 5;
         int mines = 20;
-        setSize(1250, 980);
+        setSize(cellsize * columns, (cellsize * rows > 800 ? 600 : cellsize * rows));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(cellsize * 3, cellsize * 3);
         new Board(rows, columns, mines);
     }
 
@@ -47,7 +46,7 @@ public class MineSweeper extends JFrame {
                     cells[i][j] = cell;
                     cell.setHorizontalAlignment(SwingConstants.CENTER);
                     cell.setFont(new Font("Impact", Font.BOLD, 35));
-                    cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+                    cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
                     cell.setOpaque(true);
                     cell.addMouseListener(new MouseAdapter() {
                         @Override
