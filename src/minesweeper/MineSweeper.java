@@ -2,6 +2,8 @@ package minesweeper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MineSweeper extends JFrame {
     public static void main(String[] args) {
@@ -47,6 +49,14 @@ public class MineSweeper extends JFrame {
                     cell.setFont(new Font("Impact", Font.BOLD, 35));
                     cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
                     cell.setOpaque(true);
+                    cell.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            if (HelperFunctions.isEmpty(cell)) {
+                                GamePlay.setCellText(row, col, cells);
+                            }
+                        }
+                    });
                     add(cell);
                 }
             }
@@ -65,7 +75,6 @@ public class MineSweeper extends JFrame {
                     validSpots++;
                 }
             }
-            GamePlay.calculateAround(cells);
         }
     }
 

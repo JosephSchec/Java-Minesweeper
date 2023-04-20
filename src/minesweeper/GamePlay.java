@@ -70,7 +70,7 @@ public class GamePlay {
         }
     }
 
-    private static void setCellText(int i, int j, JLabel[][] cells) {
+    public static void setCellText(int i, int j, JLabel[][] cells) {
         JLabel cell = cells[i][j];
         int mineCount = findMinesAround(i, j, cells);
         String display = mineCount == 9 ? "mine" : Integer.toString(mineCount);
@@ -83,24 +83,6 @@ public class GamePlay {
                         setCellText(getI, getJ, cells);
                     }
                 }
-            }
-        }
-    }
-
-    public static void calculateAround(JLabel[][] cells) {
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                JLabel cell = cells[i][j];
-                int finalI = i;
-                int finalJ = j;
-                cell.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        if (HelperFunctions.isEmpty(cell)) {
-                            setCellText(finalI, finalJ, cells);
-                        }
-                    }
-                });
             }
         }
     }
