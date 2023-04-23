@@ -35,22 +35,18 @@ public class GamePlay {
             if (isMine(i - 1, j, cells)) {
                 mineCount++;
             }
-
             // right
             if (isMine(i, j + 1, cells)) {
                 mineCount++;
             }
-
             //left
             if (isMine(i, j - 1, cells)) {
                 mineCount++;
             }
-
             // down right
             if (isMine(i + 1, j + 1, cells)) {
                 mineCount++;
             }
-
             //up right
             if (isMine(i - 1, j + 1, cells)) {
                 mineCount++;
@@ -60,12 +56,10 @@ public class GamePlay {
                 mineCount++;
             }
             //up left
-
             if (isMine(i - 1, j - 1, cells)) {
                 mineCount++;
             }
             allValues.put(thisPoint, mineCount);
-
             return mineCount;
         }
     }

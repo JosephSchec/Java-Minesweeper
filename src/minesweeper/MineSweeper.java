@@ -2,10 +2,15 @@ package minesweeper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MineSweeper extends JFrame {
+    boolean displayBoard = false;
+    Thread thread;
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -20,14 +25,16 @@ public class MineSweeper extends JFrame {
     }
 
     public void setUp() {
-        int cellsize = 100;
+        int cellSize = 100;
         int rows = 8;
         int columns = 5;
         int mines = 20;
-        setSize(cellsize * columns, (cellsize * rows > 800 ? 600 : cellsize * rows));
+        setSize(cellSize * columns, (cellSize * rows > 800 ? 600 : cellSize * rows));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         new Board(rows, columns, mines);
+
     }
 
 
@@ -53,6 +60,13 @@ public class MineSweeper extends JFrame {
                         public void mousePressed(MouseEvent e) {
                             if (HelperFunctions.isEmpty(cell)) {
                                 GamePlay.setCellText(row, col, cells);
+                            }
+                            Point clickedPoint = new Point(row, col);
+                            if (GamePlay.allValues.containsKey(clickedPoint) && GamePlay.allValues.get(clickedPoint) == 9) {
+                                int playAgain = JOptionPane.showConfirmDialog(null, "BOOM! Wanna play again?", "Minesweeper", JOptionPane.YES_NO_OPTION);
+                                if (playAgain == JOptionPane.YES_OPTION) {
+                                  new MineSweeper().setVisible(true);
+                                }
                             }
                         }
                     });
